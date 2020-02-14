@@ -1,0 +1,28 @@
+<html>
+<head>
+    <title>Elm to and from JavaScript</title>
+    <script src="elm.js"></script>
+</head>
+<body>
+    <div>
+        <h1>Elm side of things</h1>
+        <div id="elm"></div>
+    </div>
+    <div>
+        <h1>JS side of things</h1>
+        <input id="jsValue" placeholder="Insert value from JS side">
+        <div id="elmValue"><div>
+    </div>
+    <script>
+        let app = Elm.Main.init({ node: document.getElementById("elm") });
+        app.ports.elmToJS.subscribe(newValue => {
+            document.getElementById("elmValue").innerText = newValue;
+        });
+
+        document.getElementById("jsValue").addEventListener("input", event => {
+            app.ports.jsToElm.send(event.target.value);
+        });
+    </script>
+</body>
+
+</html>
